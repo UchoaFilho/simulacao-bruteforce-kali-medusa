@@ -1,1 +1,18 @@
+# Atualização do sistema (Opcional)
+sudo apt update && sudo apt upgrade -y
 
+# Instalação de ferramentas (Apenas para informar o comando de instalação, o Kali já vem com essas ferramentas instaladas)
+sudo apt install medusa nmap ftp smbclient tree -y
+
+# Verificação do Medusa (Verificar instalação
+medusa -h
+
+# Descoberta de IP
+ifconfig
+ip a
+
+# Teste de conectividade
+ping -c 3 192.168.56.102
+
+# Enumeração de serviços
+nmap -sV 192.168.56.102
