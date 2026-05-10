@@ -1,3 +1,9 @@
+# Simulação de Bruteforce com Meduda
+
+![Linux Security](https://img.shields.io/badge/Linux-Cibersegurança-black?style=for-the-badge&logo=linux)
+![NotebookLM](https://img.shields.io/badge/Meduna-BruteForce-blue?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-green?style=for-the-badge)
+
 # Instalação do Ambiente do Laboratório
 
 Este guia documenta o processo completo de preparação do ambiente utilizado no desafio de força bruta com Medusa.
@@ -327,11 +333,9 @@ ou
 ip a
 ```
 
-Exemplo:
+Retorno esperado:
 
-```text
-192.168.56.102
-```
+![ip-metasploitable](https://github.com/UchoaFilho/simulacao-bruteforce-kali-medusa/blob/main/images/ip-metasploitable.png?raw=true)
 
 ---
 
@@ -339,9 +343,7 @@ Exemplo:
 
 No Kali Linux:
 
-```bash
-ping -c 3 192.168.56.102
-```
+![ping-teste](https://github.com/UchoaFilho/simulacao-bruteforce-kali-medusa/blob/main/images/ping-teste.png?raw=true)
 
 ---
 
@@ -355,12 +357,7 @@ nmap -sV 192.168.56.102
 
 ## Resultado esperado
 
-```text
-21/tcp  open  ftp
-22/tcp  open  ssh
-80/tcp  open  http
-445/tcp open  microsoft-ds
-```
+![nmap-scan](https://github.com/UchoaFilho/simulacao-bruteforce-kali-medusa/blob/main/images/nmap-scan.png?raw=true)
 
 ---
 
