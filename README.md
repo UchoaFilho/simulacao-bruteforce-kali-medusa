@@ -1,6 +1,3 @@
-# simulacao-bruteforce-kali-medusa
-Simulação de cenários de ataque de força bruta como o objetivo de exercitar medidas de prevenção.
-
 # Instalação do Ambiente do Laboratório
 
 Este guia documenta o processo completo de preparação do ambiente utilizado no desafio de força bruta com Medusa.
