@@ -746,45 +746,9 @@ Demonstrar testes básicos de autenticação em serviços SMB utilizando Medusa 
 
 ---
 
-# Verificando Compartilhamentos SMB
-
-Foi utilizado o smbclient para identificar compartilhamentos disponíveis no alvo.
-
-## Comando utilizado
-
-```bash
-smbclient -L //192.168.56.102 -N
-```
-
----
-
-# Explicação do comando
-
-| Parâmetro | Função |
-|---|---|
-| smbclient | cliente SMB |
-| -L | lista compartilhamentos |
-| //192.168.56.102 | endereço do alvo |
-| -N | conexão sem senha |
-
----
-
-# Resultado Esperado
-
-Exemplo:
-
-```text
-Sharename       Type
-tmp             Disk
-opt             Disk
-IPC$            IPC
-```
-
----
-
 # Ataque de Força Bruta SMB com Medusa
 
-Após identificar o serviço SMB, foi realizado teste de autenticação automatizada utilizando Medusa.
+Com a identificação do serviço SMB, foi realizado teste de autenticação automatizada utilizando Medusa.
 
 ---
 
