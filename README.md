@@ -462,7 +462,7 @@ medusa -h 192.168.56.102 -U wordlists/users.txt -P wordlists/passwords.txt -M ft
 
 Durante a execução o Medusa realiza múltiplas tentativas de autenticação combinando usuários e senhas automaticamente.
 
-Exemplo de saída:
+Saída esperada:
 
 ```text
 ACCOUNT FOUND: [ftp] Host: 192.168.56.102 User: msfadmin Password: msfadmin
@@ -497,25 +497,19 @@ As capturas de tela desta etapa foram armazenadas na pasta:
 
 ## Execução do Medusa
 
-```text
-images/medusa-ftp.png
-```
+![Comando-medusa-ataque-ftp](https://github.com/UchoaFilho/simulacao-bruteforce-kali-medusa/blob/main/images/Comando-medusa-ataque-ftp.png?raw=true)
 
 ---
 
 ## Credencial encontrada
 
-```text
-images/ftp-credencial-encontrada.png
-```
+![Resultado-ataque-ftp](https://github.com/UchoaFilho/simulacao-bruteforce-kali-medusa/blob/main/images/Resultado-ataque-ftp.png?raw=true)
 
 ---
 
 ## Serviço FTP identificado pelo Nmap
 
-```text
-images/nmap-ftp.png
-```
+![acesso-ftp-usuario-senha-medusa](https://github.com/UchoaFilho/simulacao-bruteforce-kali-medusa/blob/main/images/acesso-ftp-usuario-senha-medusa.png?raw=true)
 
 ---
 
@@ -538,17 +532,9 @@ comandos/comandos-utilizados.txt
 
 ---
 
-## Script auxiliar
+# Teste de Autenticação HTTP com Medusa
 
-```text
-scripts/gerar_wordlist.py
-```
-
----
-
-# Teste de Segurança Web com DVWA
-
-Durante a enumeração de serviços foi identificado o serviço HTTP ativo na máquina Metasploitable 2.
+Durante a enumeração de serviços utilizando Nmap foi identificado o serviço HTTP ativo na máquina Metasploitable 2.
 
 ## Serviço identificado
 
@@ -556,99 +542,167 @@ Durante a enumeração de serviços foi identificado o serviço HTTP ativo na m�
 80/tcp open http
 ```
 
-O ambiente possui a aplicação vulnerável DVWA (Damn Vulnerable Web Application), utilizada para estudos de segurança web em ambiente controlado.
+O ambiente Metasploitable 2 possui aplicações web vulneráveis utilizadas para estudos de segurança em ambiente controlado.
 
 ---
 
 # Objetivo
 
-Demonstrar testes básicos de autenticação e identificação de vulnerabilidades web utilizando o DVWA.
+Demonstrar testes básicos de autenticação HTTP utilizando a ferramenta Medusa para compreensão de ataques de força bruta em aplicações web.
 
 ---
 
-# Acessando o DVWA
+# Verificando Serviço HTTP
 
-No navegador do Kali Linux:
+Foi realizado acesso ao serviço HTTP através do navegador do Kali Linux.
+
+## URL acessada
 
 ```text
-http://192.168.56.102/dvwa
+http://192.168.56.102
 ```
 
 ---
 
-# Credenciais padrão
+# Aplicação Vulnerável Identificada
+
+Durante os testes foi identificada a aplicação:
 
 ```text
-Usuário: admin
-Senha: password
+DVWA (Damn Vulnerable Web Application)
+```
+
+A aplicação é utilizada para treinamento e demonstração de vulnerabilidades web.
+
+---
+
+# Wordlists Utilizadas
+
+## Arquivo de usuários
+
+Arquivo:
+
+```text
+wordlists/users.txt
+```
+
+Conteúdo:
+
+```text
+admin
+msfadmin
+admin
+root
 ```
 
 ---
 
-# Testando acesso HTTP
+## Arquivo de senhas
 
-Foi realizado acesso à aplicação DVWA através do navegador para validação do serviço HTTP identificado anteriormente pelo Nmap.
-
----
-
-# Vulnerabilidades Presentes no DVWA
-
-O DVWA possui múltiplas vulnerabilidades propositalmente inseridas para treinamento, incluindo:
-
-- SQL Injection;
-- Brute Force;
-- Command Injection;
-- XSS;
-- File Inclusion;
-- CSRF.
-
----
-
-# Teste de Brute Force Web
-
-Foi utilizada a funcionalidade:
+Arquivo:
 
 ```text
-DVWA → Brute Force
+wordlists/passwords.txt
 ```
 
-para simular tentativas de autenticação insegura.
+Conteúdo:
+
+```text
+123456
+password
+qwerty
+msfadmin
+```
 
 ---
 
-# Exemplo de Credenciais Testadas
+# Teste HTTP com Medusa
+
+Foi realizada tentativa de autenticação automatizada utilizando o módulo HTTP do Medusa.
+
+## Comando utilizado
+
+```bash
+medusa -h 192.168.56.102 -U wordlists/users.txt -P wordlists/passwords.txt -M http
+```
+
+---
+
+# Explicação dos Parâmetros
+
+| Parâmetro | Função |
+|---|---|
+| -h | endereço IP do alvo |
+| -U | lista de usuários |
+| -P | lista de senhas |
+| -M http | módulo HTTP do Medusa |
+
+---
+
+# Observações Técnicas
+
+Durante os testes foi observado que aplicações web modernas utilizam mecanismos adicionais de autenticação, incluindo:
+
+- formulários HTML;
+- método POST;
+- cookies de sessão;
+- tokens CSRF;
+- autenticação dinâmica.
+
+Por esse motivo, o módulo HTTP básico do Medusa possui limitações para autenticação automatizada em aplicações web como o DVWA.
+
+---
+
+# Análise do Formulário Web
+
+Durante a análise da aplicação foram identificados parâmetros utilizados no processo de autenticação.
+
+## Exemplo de parâmetros observados
 
 ```text
-admin:password
-admin:123456
-user:password
+username
+password
+Login
+```
+
+---
+
+# Exemplo Conceitual de Requisição HTTP
+
+```http
+POST /dvwa/login.php HTTP/1.1
+
+username=admin&password=password&Login=Login
 ```
 
 ---
 
 # Resultado Observado
 
-Foi possível autenticar utilizando credenciais fracas.
+O teste permitiu compreender:
 
-Exemplo:
-
-```text
-Username: admin
-Password: password
-```
+- funcionamento de autenticação HTTP;
+- utilização de wordlists;
+- funcionamento do Medusa;
+- diferenças entre autenticação de serviços e aplicações web.
 
 ---
 
 # Vulnerabilidade Identificada
 
-A aplicação apresentou vulnerabilidade relacionada ao uso de credenciais previsíveis e ausência de proteção adequada contra múltiplas tentativas de login.
+A aplicação apresentou vulnerabilidades relacionadas a:
+
+- uso de credenciais fracas;
+- autenticação insegura;
+- ausência de limitação de tentativas;
+- ambiente vulnerável para estudos.
 
 ---
 
 # Possíveis Impactos
 
 - acesso não autorizado;
-- comprometimento de sessão;
+- comprometimento de contas;
 - exposição de informações;
 - escalonamento de privilégios.
 
@@ -664,47 +718,11 @@ As capturas de tela desta etapa foram armazenadas em:
 
 ---
 
-# Capturas Recomendadas
+## Execução do Medusa HTTP
 
-## Página inicial do DVWA
-
-```text
-images/dvwa-home.png
-```
+![medusa-http](https://github.com/UchoaFilho/simulacao-bruteforce-kali-medusa/blob/main/images/medusa-http.png?raw=true)
 
 ---
-
-## Tela de login
-
-```text
-images/dvwa-login.png
-```
-
----
-
-## Login realizado com sucesso
-
-```text
-images/dvwa-login-success.png
-```
-
----
-
-## Tela Brute Force do DVWA
-
-```text
-images/dvwa-bruteforce.png
-```
-
----
-
-# Comandos Relacionados
-
-## Verificação HTTP com Nmap
-
-```bash
-nmap -sV 192.168.56.102
-```
 
 ---
 
@@ -783,11 +801,10 @@ wordlists/users.txt
 Conteúdo:
 
 ```text
-user
+admin
 msfadmin
 admin
 root
-guest
 ```
 
 ---
@@ -807,8 +824,6 @@ Conteúdo:
 password
 qwerty
 msfadmin
-toor
-guest
 ```
 
 ---
@@ -816,7 +831,7 @@ guest
 # Comando Utilizado
 
 ```bash
-medusa -h 192.168.56.102 -U wordlists/users.txt -P wordlists/passwords.txt -M smbnt
+medusa -h 192.168.56.102 -U ~/users.txt -P ~/passwords.txt -M smbnt
 ```
 
 ---
@@ -867,29 +882,23 @@ As capturas de tela desta etapa foram armazenadas na pasta:
 
 ---
 
-# Capturas Recomendadas
+# Capturas
 
 ## Compartilhamentos SMB encontrados
 
-```text
-images/smb-shares.png
-```
+![medusa-sambaa](https://github.com/UchoaFilho/simulacao-bruteforce-kali-medusa/blob/main/images/medusa-samba.png?raw=true)
 
 ---
 
 ## Execução do Medusa SMB
 
-```text
-images/medusa-smb.png
-```
+![Comando-medusa-ataque-samba](https://github.com/UchoaFilho/simulacao-bruteforce-kali-medusa/blob/main/images/Comando-medusa-ataque-samba.png?raw=true)
 
----
+--- 
 
 ## Credencial SMB encontrada
 
-```text
-images/smb-credencial-encontrada.png
-```
+![acesso-samba-usuario-senha-medusa](https://github.com/UchoaFilho/simulacao-bruteforce-kali-medusa/blob/main/images/acesso-samba-usuario-senha-medusa.png?raw=true)
 
 ---
 
